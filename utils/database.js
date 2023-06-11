@@ -22,3 +22,5 @@ try {
 }
 
 }
+
+ module.exports = connectToDB;
