@@ -7,15 +7,15 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 
 const Nav = () => {
 
-    const isUserLoggedin = true;
+    const  {data: session} = useSession();
     const [providers, setProviders] = useState(null);
     const [toggleDropdown, setToggleDropdown] = useState(false);
     useEffect(() => {
-        const setProviders = async () => {
+        const setUpProviders = async () => {
             const response = await getProviders();
             setProviders(response)
         }
-        setProviders()
+        setUpProviders()
     }, [])
     return (
         <nav className="flex-between w-full mb-16 pt-3">
@@ -27,14 +27,14 @@ const Nav = () => {
 
             {/* Desktop Nav */}
             <div className="sm:flex hidden">
-                {isUserLoggedin ? (
+                {session?.user ? (
                     <div className="flex gap-3 md:gap-5">
                         <Link href="/create-prompt">
                             <button className="black_btn">Create Post</button>
                         </Link>
                         <button type="button" className="outline_btn" onClick={signOut}>Sign Out</button>
                         <Link href="/profile">
-                            <Image src="/assets/images/logo.svg" width={37} height={37} />
+                            <Image src={session?.user.image} width={37} height={37} className="rounded-full" />
                         </Link>
                     </div>
                 ) :
@@ -51,9 +51,9 @@ const Nav = () => {
 
             {/* Mobile Nav View */}
             <div className="sm:hidden flex relative">
-                {isUserLoggedin ? (
+                {session?.user ? (
                     <div className="flex">
-                        <Image src="/assets/images/logo.svg"
+                        <Image src={session?.user.image}
                             width={37} height={37}
                             className="rounded-full"
                             onClick={() => setToggleDropdown((prev) => !prev)}
