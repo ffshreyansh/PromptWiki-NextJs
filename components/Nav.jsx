@@ -20,7 +20,7 @@ const Nav = () => {
     return (
         <nav className="flex-between w-full mb-16 pt-3">
             <Link className="flex flex-center gap-2" href="/">
-                <Image src="/assets/images/logo.svg" width={30} height={30} className="object-contain"></Image>
+                <Image src="/assets/images/logo.svg" width={30} height={30} className="object-contain" alt="logo"></Image>
                 <p className="logo_text">PromptWiki</p>
             </Link>
 
@@ -34,7 +34,7 @@ const Nav = () => {
                         </Link>
                         <button type="button" className="outline_btn" onClick={signOut}>Sign Out</button>
                         <Link href="/profile">
-                            <Image src={session?.user.image} width={37} height={37} className="rounded-full" />
+                            <Image src={session?.user.image} width={37} height={37} className="rounded-full" alt="user-img"/>
                         </Link>
                     </div>
                 ) :
